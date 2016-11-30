@@ -42,9 +42,10 @@ class Player
 		end
 	end
 
-	
+
 	def choose_piece
 #lists each piece with its position
+		puts "\n"
 		puts "#{@name}, which piece do you want you move? (Choose the number of the piece)"
 		@figure = gets.chomp.to_i
 		until @figure > 0 && @figure <= @pieces.length
