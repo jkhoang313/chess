@@ -72,13 +72,13 @@ class ChessBoard
 			draw_board
 			turn(@player_one, @player_two)
 			if @player_one.check == true
-				@player_two.king_checked = true 
+				@player_two.king_checked = true
 				if @player_one.checkmate?(@player_two.pieces, @player_two.occupied, @player_two.side, @player_two.king_position, @player_one.pieces, @player_one.occupied, @player_one.side) == true
 					puts "Checkmate!"
-					draw_board 
+					draw_board
 					@game_over = true
 				end
-			@player_one.check = false	
+			@player_one.check = false
 			end
 			print "\n"
 
@@ -87,9 +87,9 @@ class ChessBoard
 			draw_board
 			turn(@player_two, @player_one)
 			if @player_two.check == true
-				@player_one.king_checked = true 
+				@player_one.king_checked = true
 				if @player_two.checkmate?(@player_one.pieces, @player_one.occupied, @player_one.side, @player_one.king_position, @player_two.pieces, @player_two.occupied, @player_two.side) == true
-					puts "Checkmate!" 
+					puts "Checkmate!"
 					print "\n"
 					draw_board
 					@game_over = true
@@ -99,7 +99,7 @@ class ChessBoard
 			print "\n"
 		end
 	end
-	
+
 
 	def turn(turn_player, enemy)
 		@enemy_pieces = enemy.pieces
@@ -113,15 +113,17 @@ class ChessBoard
 		if turn_player.king_checked == true
 			until turn_player.king_checked == false
 				puts "Your King is checked!"
+				turn_player.display_moves
 				turn_player.choose_piece
 				turn_player.choose_move(@enemy_occupied)
 				turn_player.uncheck_king?(@occupied, @king_position, @enemy_pieces, @enemy_occupied, enemy.side)
 			end
 		else
+			turn_player.display_moves
 			turn_player.choose_piece
-			turn_player.choose_move(@enemy_occupied) 
+			turn_player.choose_move(@enemy_occupied)
 		end
-		turn_player.make_move(@enemy_occupied)			
+		turn_player.make_move(@enemy_occupied)
 		capture_enemy(turn_player, enemy) if turn_player.capture == true
 		turn_player.declare_check(enemy.occupied, @enemy_king_position)
 		turn_player.update_pieces

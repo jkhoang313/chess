@@ -33,17 +33,19 @@ class Player
 		end
 	end
 
-
-	def choose_piece
-#lists each piece with its position
-		puts "#{@name}, which piece do you want you move? (Choose the number of the piece"
+	def display_moves
 		@pieces.each_with_index do |piece_description, number|
 			piece = piece_description[0]
 			column = piece_description[1]
 			row = piece_description[2]
 			puts "#{number+1}. #{piece} at (#{column}, #{row})"
 		end
+	end
 
+	
+	def choose_piece
+#lists each piece with its position
+		puts "#{@name}, which piece do you want you move? (Choose the number of the piece)"
 		@figure = gets.chomp.to_i
 		until @figure > 0 && @figure <= @pieces.length
 			puts "Please enter a valid choice."
@@ -54,7 +56,6 @@ class Player
 		@chosen_piece_column = @pieces[@chosen_piece_index][1]
 		@chosen_piece_row = @pieces[@chosen_piece_index][2]
 	end
-
 
 	def choose_move(enemy_occupied)
 #lists possible moves
@@ -78,11 +79,11 @@ class Player
 				puts "Please enter a valid choice."
 				@move = gets.chomp.to_i
 			end
-			
+
 			if @move == 0
 				choose_piece
 				choose_move(enemy_occupied)
-			else	
+			else
 				@new_piece_pos = moves[@move-1]
 			end
 		end
@@ -114,7 +115,7 @@ class Player
 		possible_moves(enemy_occupied)
 		if @total_possible_moves.include?(enemy_king)
 			@check = true
-			puts "Check!" 
+			puts "Check!"
 		end
 	end
 
@@ -127,7 +128,7 @@ class Player
 			enemy_occupied.each_with_index do |piece, index|
 				if piece[0] == @new_piece_pos[0] && piece[1] == @new_piece_pos[1]
 					enemy_pieces.delete_at(index)
-					enemy_occupied.delete_at(index) 
+					enemy_occupied.delete_at(index)
 				end
 			end
 		end
